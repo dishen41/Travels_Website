@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Packages | Veer Travels</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page-header {
+            padding: 150px 0 80px;
+            background: linear-gradient(rgba(13, 43, 77, 0.8), rgba(13, 43, 77, 0.9)), url('assets/images/bali.png') center/cover;
+            color: white;
+            text-align: center;
+        }
+        .section-title-sub {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin: 40px 0 30px;
+            font-family: var(--font-secondary);
+        }
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: 60px;
+        }
+        .packages-grid.first-grid {
+            margin-top: -30px;
+            position: relative;
+            z-index: 10;
+        }
+        .pkg-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .pkg-card:hover {
+            box-shadow: var(--shadow-premium);
+            transform: translateY(-5px);
+        }
+        .pkg-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .pkg-content {
+            padding: var(--spacing-md) var(--spacing-lg);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .pkg-title {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        .pkg-desc {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .pkg-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        .pkg-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+        .pkg-list li::before {
+            content: '\f00c'; /* Font Awesome check */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--secondary-color);
+            font-size: 0.8rem;
+        }
+        .btn-gold {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            font-weight: bold;
+            width: 100%;
+            margin-top: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-gold:hover {
+            background-color: var(--accent-color);
+            transform: none;
+            box-shadow: var(--shadow-md);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="Veer Travels Logo" style="height: 50px; width: auto;">
+            </a>
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="hotels.html">Hotels</a></li>
+                    <li><a href="packages.html" class="active">Packages</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="contact-info">
+                <a href="tel:+919016665048"><i class="fa-solid fa-phone"></i> +91 9016665048</a>
+                <a href="https://wa.me/919016665048" class="btn btn-secondary"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+            </div>
+            <div class="mobile-toggle" id="mobileToggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container reveal">
+            <h1>Tour Packages</h1>
+            <p style="font-size: 1.2rem; opacity: 0.9;">Curated itineraries for unforgettable experiences</p>
+        </div>
+    </div>
+
+    <!-- Packages Section -->
+    <section class="section container" style="padding-top: 0; padding-bottom: 80px;">
+        
+        <h2 class="section-title-sub reveal">India Tour Packages</h2>
+        <div class="packages-grid first-grid">
+            
+            <!-- Gujarat -->
+            <div class="pkg-card reveal">
+                <img src="assets/images/gujarat.png" alt="Gujarat" class="pkg-img">
+                <div class="pkg-content">
+                    <h3 class="pkg-title">Gujarat</h3>
+                    <p class="pkg-desc">Experience the vibrant culture, vast white deserts, and majestic Asiatic lions of Gujarat.</p>
+                    <ul class="pkg-list">
+                        <li>Dwarka Somnath Tour</li>
+                        <li>Rann of Kutch</li>
+                        <li>Gir Safari</li>
+                        <li>Statue of Unity</li>
+                    </ul>
+                    <a href="contact.html#contact-form" class="btn btn-gold">Get Quote <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Rajasthan -->
+            <div class="pkg-card reveal" style="transition-delay: 0.1s;">
+                <img src="assets/images/rajasthan.png" alt="Rajasthan" class="pkg-img">
+                <div class="pkg-content">
+                    <h3 class="pkg-title">Rajasthan</h3>
+                    <p class="pkg-desc">Step into the land of royals with magnificent palaces, grand forts, and colorful heritage.</p>
+                    <ul class="pkg-list">
+                        <li>Jaipur Jodhpur Udaipur</li>
+                        <li>Desert Safari Jaisalmer</li>
+                        <li>Royal Rajasthan</li>
+                    </ul>
+                    <a href="contact.html#contact-form" class="btn btn-gold">Get Quote <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Kerala -->
+            <div class="pkg-card reveal" style="transition-delay: 0.2s;">
+                <img src="assets/images/kerala.png" alt="Kerala" class="pkg-img">
+                <div class="pkg-content">
+                    <h3 class="pkg-title">Kerala</h3>
+                    <p class="pkg-desc">Relax in God's Own Country, featuring serene backwaters, lush tea gardens, and pristine beaches.</p>
+                    <ul class="pkg-list">
+                        <li>Munnar Tea Gardens Escape</li>
+                        <li>Alleppey Houseboat Stay</li>
+                    </ul>
+                    <a href="contact.html#contact-form" class="btn btn-gold">Get Quote <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Goa -->
+            <div class="pkg-card reveal">
+                <img src="assets/images/goa.png" alt="Goa" class="pkg-img">
+                <div class="pkg-content">
+                    <h3 class="pkg-title">Goa</h3>
+                    <p class="pkg-desc">Enjoy the perfect blend of sun, sand, and sea with vibrant nightlife and Portuguese heritage.</p>
+                    <ul class="pkg-list">
+                        <li>North Goa Beach Hopping</li>
+                        <li>South Goa Luxury Retreat</li>
+                        <li>Goa Water Sports Adventure</li>
+                    </ul>
+                    <a href="contact.html#contact-form" class="btn btn-gold">Get Quote <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Himachal Pradesh -->
+            <div class="pkg-card reveal" style="transition-delay: 0.1s;">
+                <img src="assets/images/himachal.png" alt="Himachal Pradesh" class="pkg-img">
+                <div class="pkg-content">
+                    <h3 class="pkg-title">Himachal Pradesh</h3>
+                    <p class="pkg-desc">Find peace in the majestic Himalayas, with pine-scented air and beautiful mountain valleys.</p>
+                    <ul class="pkg-list">
+                        <li>Manali Snow Adventure Tour</li>
+                        <li>Shimla Heritage Walk</li>
+                        <li>Spiti Valley Expedition</li>
+                    </ul>
+                    <a href="contact.html#contact-form" class="btn btn-gold">Get Quote <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- North East -->
+            <div class="pkg-card reveal" style="transition-delay: 0.2s;">
+                <img src="assets/images/northeast.png" alt="North East" class="pkg-img">
+                <div class="pkg-content">
+                    <h3 class="pkg-title">North East</h3>
+                    <p class="pkg-desc">Discover the untouched beauty, diverse cultures, and lush green landscapes of North East India.</p>
+                    <ul class="pkg-list">
+                        <li>Meghalaya Waterfalls Tour</li>
+                        <li>Assam Kaziranga Safari</li>
+                        <li>Sikkim Monasteries Tour</li>
+                    </ul>
+                    <a href="contact.html#contact-form" class="btn btn-gold">Get Quote <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title-sub reveal">International Tour Packages</h2>
+        <div class="packages-grid">
+            <!-- Dubai -->
+            <div class="pkg-card reveal">
+                <img src="assets/images/dubai.png" alt="Dubai" class="pkg-img">
+                <div class="pkg-content">
+                    <h3 class="pkg-title">Dubai</h3>
+                    <p class="pkg-desc">Experience the ultimate luxury, futuristic architecture, and thrilling desert safaris.</p>
+                    <ul class="pkg-list">
+                        <li>Dubai City Tour</li>
+                        <li>Desert Safari with Dinner</li>
+                        <li>Abu Dhabi Day Trip</li>
+                    </ul>
+                    <a href="contact.html#contact-form" class="btn btn-gold">Get Quote <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Bali -->
+            <div class="pkg-card reveal" style="transition-delay: 0.1s;">
+                <img src="assets/images/bali.png" alt="Bali" class="pkg-img">
+                <div class="pkg-content">
+                    <h3 class="pkg-title">Bali</h3>
+                    <p class="pkg-desc">Discover the Island of Gods, famous for its volcanic mountains, iconic rice paddies, and beaches.</p>
+                    <ul class="pkg-list">
+                        <li>Ubud Cultural Tour</li>
+                        <li>South Bali Beaches</li>
+                        <li>Seminyak Luxury Escape</li>
+                    </ul>
+                    <a href="contact.html#contact-form" class="btn btn-gold">Get Quote <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Thailand -->
+            <div class="pkg-card reveal" style="transition-delay: 0.2s;">
+                <img src="assets/images/thailand.png" alt="Thailand" class="pkg-img">
+                <div class="pkg-content">
+                    <h3 class="pkg-title">Thailand</h3>
+                    <p class="pkg-desc">Explore the Land of Smiles, offering spectacular islands, grand temples, and bustling night markets.</p>
+                    <ul class="pkg-list">
+                        <li>Phuket Island Hopping</li>
+                        <li>Bangkok City & Shopping Tour</li>
+                        <li>Pattaya Beach & Entertainment</li>
+                    </ul>
+                    <a href="contact.html#contact-form" class="btn btn-gold">Get Quote <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Maldives -->
+            <div class="pkg-card reveal">
+                <img src="assets/images/maldives.png" alt="Maldives" class="pkg-img">
+                <div class="pkg-content">
+                    <h3 class="pkg-title">Maldives</h3>
+                    <p class="pkg-desc">Escape to a tropical paradise featuring crystal-clear waters and luxurious overwater bungalows.</p>
+                    <ul class="pkg-list">
+                        <li>Premium Water Villa Stay</li>
+                        <li>Maldives Honeymoon Special</li>
+                        <li>Scuba Diving & Snorkeling Tour</li>
+                    </ul>
+                    <a href="contact.html#contact-form" class="btn btn-gold">Get Quote <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Singapore -->
+            <div class="pkg-card reveal" style="transition-delay: 0.1s;">
+                <img src="assets/images/singapore.png" alt="Singapore" class="pkg-img">
+                <div class="pkg-content">
+                    <h3 class="pkg-title">Singapore</h3>
+                    <p class="pkg-desc">Visit the Lion City, where modern wonders meet beautiful green spaces and diverse cultures.</p>
+                    <ul class="pkg-list">
+                        <li>Universal Studios & Sentosa</li>
+                        <li>Gardens by the Bay Tour</li>
+                        <li>Singapore Night Safari</li>
+                    </ul>
+                    <a href="contact.html#contact-form" class="btn btn-gold">Get Quote <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom:15px; display:inline-block;">
+                        <img src="assets/images/logo.png" alt="Veer Travels Logo" style="height: 60px; width: auto;">
+                    </a>
+                    <p style="font-size:0.9rem;">Your trusted partner for unforgettable travel experiences across India and beyond.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="hotels.html">Hotels</a></li>
+                        <li><a href="packages.html">Packages</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Popular Destinations</h4>
+                    <ul>
+                        <li><a href="packages.html">Kashmir</a></li>
+                        <li><a href="packages.html">Rajasthan</a></li>
+                        <li><a href="packages.html">Kerala</a></li>
+                        <li><a href="packages.html">Goa</a></li>
+                        <li><a href="packages.html">Himachal Pradesh</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <ul style="font-size:0.9rem;">
+                        <li style="display:flex; gap:10px;"><i class="fa-solid fa-phone" style="color:var(--secondary-color); margin-top:5px;"></i> <a href="tel:+919016665048">+91 9016665048</a></li>
+                        <li style="display:flex; gap:10px;"><i class="fa-brands fa-whatsapp" style="color:var(--secondary-color); margin-top:5px;"></i> <a href="https://wa.me/919016665048">WhatsApp Chat</a></li>
+                        <li style="display:flex; gap:10px;"><i class="fa-solid fa-envelope" style="color:var(--secondary-color); margin-top:5px;"></i> <a href="mailto:info@veertravels.com">info@veertravels.com</a></li>
+                        <li style="display:flex; gap:10px;"><i class="fa-solid fa-location-dot" style="color:var(--secondary-color); margin-top:5px;"></i> Gujarat, India</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Veer Travels. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

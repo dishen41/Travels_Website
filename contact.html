@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Veer Travels</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page-header {
+            padding: 150px 0 80px;
+            background: linear-gradient(rgba(13, 43, 77, 0.8), rgba(13, 43, 77, 0.9)), url('assets/images/dubai.png') center/cover;
+            color: white;
+            text-align: center;
+        }
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: var(--spacing-xl);
+            margin-top: -50px; /* Overlap with header */
+            position: relative;
+            z-index: 10;
+        }
+        .contact-info-card {
+            background: var(--primary-color);
+            color: white;
+            padding: var(--spacing-xl) var(--spacing-lg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+        }
+        .contact-info-card h3 {
+            color: white;
+            margin-bottom: var(--spacing-lg);
+        }
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: var(--spacing-md);
+        }
+        .info-item i {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+        .info-item h4 {
+            color: white;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        .contact-form-card {
+            background: white;
+            padding: var(--spacing-xl) var(--spacing-lg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+        }
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: var(--font-primary);
+            transition: var(--transition);
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                margin-top: var(--spacing-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="Veer Travels Logo" style="height: 50px; width: auto;">
+            </a>
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="hotels.html">Hotels</a></li>
+                    <li><a href="packages.html">Packages</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="contact-info">
+                <a href="tel:+919016665048"><i class="fa-solid fa-phone"></i> +91 9016665048</a>
+                <a href="https://wa.me/919016665048" class="btn btn-secondary"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+            </div>
+            <div class="mobile-toggle" id="mobileToggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container reveal">
+            <h1>Contact Us</h1>
+            <p style="font-size: 1.2rem; opacity: 0.9;">We'd love to hear from you. Get in touch with our experts.</p>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="section container" style="padding-top: 0;">
+        <div class="contact-container reveal">
+            <!-- Contact Info -->
+            <div class="contact-info-card">
+                <h3>Get In Touch</h3>
+                
+                <div class="info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>
+                        <h4>Phone</h4>
+                        <p><a href="tel:+919016665048" style="color:rgba(255,255,255,0.8);">+91 9016665048</a></p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <div>
+                        <h4>WhatsApp</h4>
+                        <p><a href="https://wa.me/919016665048" style="color:rgba(255,255,255,0.8);">Chat with us</a></p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p><a href="mailto:info@veertravels.com" style="color:rgba(255,255,255,0.8);">info@veertravels.com</a></p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <h4>Location</h4>
+                        <p style="color:rgba(255,255,255,0.8);">Gujarat, India</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <h4>Follow Us</h4>
+                    <div class="social-links" style="margin-top: 10px;">
+                        <a href="#" style="background:rgba(255,255,255,0.2);"><i class="fa-brands fa-facebook-f" style="color:white;"></i></a>
+                        <a href="#" style="background:rgba(255,255,255,0.2);"><i class="fa-brands fa-instagram" style="color:white;"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-card" id="contact-form">
+                <h3 style="color:var(--primary-color); margin-bottom:var(--spacing-md);">Send us a Message</h3>
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label class="form-label">Your Name *</label>
+                        <input type="text" class="form-control" placeholder="John Doe" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Mobile Number *</label>
+                        <input type="tel" class="form-control" placeholder="+91 9876543210" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" class="form-control" placeholder="john@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Your Message *</label>
+                        <textarea class="form-control" placeholder="Tell us about your travel plans..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px; font-size: 1.1rem; padding: 15px;">Submit Inquiry</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom:15px; display:inline-block;">
+                        <img src="assets/images/logo.png" alt="Veer Travels Logo" style="height: 60px; width: auto;">
+                    </a>
+                    <p style="font-size:0.9rem;">Your trusted partner for unforgettable travel experiences across India and beyond.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="hotels.html">Hotels</a></li>
+                        <li><a href="packages.html">Packages</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <ul style="font-size:0.9rem;">
+                        <li style="display:flex; gap:10px;"><i class="fa-solid fa-phone" style="color:var(--secondary-color); margin-top:5px;"></i> <a href="tel:+919016665048">+91 9016665048</a></li>
+                        <li style="display:flex; gap:10px;"><i class="fa-brands fa-whatsapp" style="color:var(--secondary-color); margin-top:5px;"></i> <a href="https://wa.me/919016665048">WhatsApp Chat</a></li>
+                        <li style="display:flex; gap:10px;"><i class="fa-solid fa-envelope" style="color:var(--secondary-color); margin-top:5px;"></i> <a href="mailto:info@veertravels.com">info@veertravels.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Veer Travels. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
