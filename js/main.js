@@ -80,6 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 formData.mobile = form.querySelector('input[type="tel"]').value;
                 formData.email = form.querySelector('input[type="email"]').value;
                 formData.message = form.querySelector('textarea').value;
+            } else if (formType === 'homepage') {
+                formData.name = form.querySelector('input[type="text"]').value;
+                formData.mobile = form.querySelector('input[type="tel"]').value;
+                formData.email = form.querySelector('input[type="email"]').value;
+                formData.destination = form.querySelector('select').value;
+                formData.message = form.querySelector('textarea').value;
             }
 
             try {
@@ -115,4 +121,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupForm('hotel-form', 'hotel');
     setupForm('contact-form-el', 'contact');
+    setupForm('homepage-enquiry-form', 'homepage');
 });

@@ -26,9 +26,9 @@
             <nav>
                 <ul class="nav-links" id="navLinks">
                     <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="hotels.html">Hotels</a></li>
+                    <li><a href="#services">Services</a></li>
                     <li><a href="packages.html">Packages</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
                 </ul>
             </nav>
 
@@ -52,9 +52,91 @@
             <h1>Discover the Magic of Incredible India</h1>
             <p>Your trusted partner for unforgettable travel experiences.</p>
             <div class="hero-buttons">
-                <a href="hotels.html" class="btn btn-primary">Book Hotels</a>
+                <a href="#enquiry-section" class="btn btn-primary">Book Hotels</a>
                 <a href="packages.html" class="btn btn-secondary">View Packages</a>
                 <a href="contact.html" class="btn btn-outline">Get Custom Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Services Section -->
+    <section class="section services-section reveal" id="services">
+        <div class="container">
+            <h2 class="section-title">OUR SERVICES</h2>
+            <p class="section-subtitle">Complete Travel Solutions Under One Roof</p>
+            
+            <div class="services-grid">
+                <!-- Card 1: Domestic & International Tours -->
+                <a href="packages.html" class="service-card-wrapper reveal">
+                    <div class="service-card">
+                        <div class="service-icon-container">
+                            <i class="fa-regular fa-compass"></i>
+                        </div>
+                        <h3>Domestic & International Tours</h3>
+                        <p>Explore tailormade personal, family, and group tour itineraries to your dream destinations in India and abroad.</p>
+                    </div>
+                </a>
+
+                <!-- Card 2: Air Tickets -->
+                <a href="#enquiry-section" class="service-card-wrapper reveal" style="transition-delay: 0.05s;">
+                    <div class="service-card">
+                        <div class="service-icon-container">
+                            <i class="fa-regular fa-paper-plane"></i>
+                        </div>
+                        <h3>Air Tickets</h3>
+                        <p>Plan your journeys with absolute peace of mind. We assist with booking all domestic and international flights.</p>
+                    </div>
+                </a>
+
+                <!-- Card 3: Visas -->
+                <a href="#enquiry-section" class="service-card-wrapper reveal" style="transition-delay: 0.1s;">
+                    <div class="service-card">
+                        <div class="service-icon-container">
+                            <i class="fa-regular fa-address-card"></i>
+                        </div>
+                        <h3>Visas</h3>
+                        <p>Seamless tourist and business visa processing with step-by-step document guidance and complete support.</p>
+                    </div>
+                </a>
+
+                <!-- Card 4: Hotels -->
+                <a href="#enquiry-section" class="service-card-wrapper reveal" style="transition-delay: 0.15s;">
+                    <div class="service-card">
+                        <div class="service-icon-container">
+                            <i class="fa-regular fa-building"></i>
+                        </div>
+                        <h3>Hotels</h3>
+                        <p>Handpicked accommodations worldwide ranging from cozy budget stays to ultra-luxury world-class resorts.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="services-grid services-row-2">
+                <!-- Card 5: Travel Insurance -->
+                <a href="#enquiry-section" class="service-card-wrapper reveal">
+                    <div class="service-card">
+                        <div class="service-icon-container">
+                            <i class="fa-regular fa-shield"></i>
+                        </div>
+                        <h3>Travel Insurance</h3>
+                        <p>Comprehensive medical and trip coverage so you are protected against any unforeseen disruptions or losses.</p>
+                    </div>
+                </a>
+
+                <!-- Card 6: Passports -->
+                <a href="#enquiry-section" class="service-card-wrapper reveal" style="transition-delay: 0.05s;">
+                    <div class="service-card">
+                        <div class="service-icon-container">
+                            <i class="fa-regular fa-address-book"></i>
+                        </div>
+                        <h3>Passports</h3>
+                        <p>Hassle-free passport assistance for fresh registrations, renewals, name changes, and tatkaal applications.</p>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="services-cta reveal">
+                <a href="#enquiry-section" class="btn btn-secondary" style="font-size: 1.2rem; padding: 1rem 2.5rem;">Enquire Now</a>
             </div>
         </div>
     </section>
@@ -266,7 +348,60 @@
         <div class="container">
             <h2 style="font-size: 3rem; color: var(--primary-color);">Ready to Start Your Adventure?</h2>
             <p style="font-size: 1.2rem; margin-bottom: var(--spacing-lg); color: var(--text-dark);">Let us plan the perfect trip for you.</p>
-            <a href="contact.html" class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2.5rem;">Get Your Free Quote</a>
+            <a href="#enquiry-section" class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2.5rem;">Get Your Free Quote</a>
+        </div>
+    </section>
+
+    <!-- Enquiry Form Section -->
+    <section class="enquiry-section reveal" id="enquiry-section">
+        <div class="container">
+            <h2 class="section-title">PLAN YOUR DREAM TRIP</h2>
+            <p class="section-subtitle">Complete the form below and our experts will plan the perfect itinerary for you</p>
+            
+            <div class="enquiry-container-box">
+                <form action="#" id="homepage-enquiry-form" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Your Name *</label>
+                            <input type="text" class="form-control" placeholder="John Doe" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Mobile Number *</label>
+                            <input type="tel" class="form-control" placeholder="+91 9876543210" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Email Address *</label>
+                            <input type="email" class="form-control" placeholder="john@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Select Service *</label>
+                            <select class="form-control" required style="background-color: var(--bg-white);">
+                                <option value="" disabled selected>Choose a Service</option>
+                                <option value="Flight Booking">Flight Booking</option>
+                                <option value="Hotel Booking">Hotel Booking</option>
+                                <option value="Visa Assistance">Visa Assistance</option>
+                                <option value="Holiday Packages">Holiday Packages</option>
+                                <option value="Transportation">Transportation</option>
+                                <option value="Cruise Booking">Cruise Booking</option>
+                                <option value="Travel Insurance">Travel Insurance</option>
+                                <option value="Corporate Travel">Corporate Travel</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Your Message *</label>
+                        <textarea class="form-control" placeholder="Tell us about your destinations, travel dates, passenger count, or any special requirements..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px; font-size: 1.1rem; padding: 15px;">Submit Enquiry</button>
+                </form>
+            </div>
         </div>
     </section>
 
@@ -289,9 +424,8 @@
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="hotels.html">Hotels</a></li>
                         <li><a href="packages.html">Packages</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
                     </ul>
                 </div>
                 
