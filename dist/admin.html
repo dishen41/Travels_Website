@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Veer Travels</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0d2b4d;
+            --secondary: #d4af37;
+            --bg: #f4f6f8;
+            --text: #333;
+            --card-bg: #fff;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 2rem;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            font-size: 1.5rem;
+        }
+        .btn-refresh {
+            background: var(--secondary);
+            color: var(--primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-refresh:hover {
+            opacity: 0.9;
+        }
+        .table-container {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .badge-hotel {
+            background-color: #e0f2fe;
+            color: #0284c7;
+        }
+        .badge-contact {
+            background-color: #fef3c7;
+            color: #d97706;
+        }
+        .empty-state {
+            padding: 3rem;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Veer Travels - Enquiries Dashboard</h1>
+        <button class="btn-refresh" onclick="fetchEnquiries()">Refresh Data</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date / Time</th>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Email</th>
+                    <th>Destination</th>
+                    <th>Rooms / Pax</th>
+                    <th>Message / Special Req</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr>
+                    <td colspan="8" class="empty-state">Loading enquiries...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const API_URL = 'http://127.0.0.1:8000/api/enquiries';
+
+        async function fetchEnquiries() {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '<tr><td colspan="8" class="empty-state">Loading enquiries...</td></tr>';
+            
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const result = await response.json();
+                
+                if (result.data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="8" class="empty-state">No enquiries found.</td></tr>';
+                    return;
+                }
+
+                tableBody.innerHTML = '';
+                result.data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    
+                    const typeBadgeClass = row.Type === 'hotel' ? 'badge-hotel' : 'badge-contact';
+                    
+                    let messageContent = '';
+                    if (row.Message) messageContent += `<strong>Msg:</strong> ${row.Message}<br>`;
+                    if (row.SpecialReq) messageContent += `<strong>Req:</strong> ${row.SpecialReq}`;
+
+                    tr.innerHTML = `
+                        <td style="white-space: nowrap; font-size: 0.9rem;">${row.Date}</td>
+                        <td><span class="badge ${typeBadgeClass}">${row.Type.toUpperCase()}</span></td>
+                        <td style="font-weight: 500;">${row.Name}</td>
+                        <td>${row.Mobile}</td>
+                        <td>${row.Email}</td>
+                        <td>${row.Destination || '-'}</td>
+                        <td>${row.Rooms_Persons || '-'}</td>
+                        <td style="font-size: 0.9rem; max-width: 300px;">${messageContent || '-'}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error('Error fetching enquiries:', error);
+                tableBody.innerHTML = `<tr><td colspan="8" class="empty-state" style="color: red;">Error connecting to the backend server. Make sure it is running.</td></tr>`;
+            }
+        }
+
+        // Fetch on load
+        fetchEnquiries();
+    </script>
+</body>
+</html>

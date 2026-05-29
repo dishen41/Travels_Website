@@ -1,4 +1,56 @@
-// Main Javascript file
+// ==== EmailJS Configuration ====
+let EMAILJS_SERVICE_ID = "service_funfekn";      // Replace with your EmailJS Service ID
+let EMAILJS_TEMPLATE_ID = "template_mif5kph";    // Replace with your EmailJS Template ID
+let EMAILJS_PUBLIC_KEY = "LJ9eXbLn9RVDsyICp";      // Replace with your EmailJS Public Key
+let isEmailJSInitialized = false;
+
+// Dynamically load the EmailJS SDK script and fetch credentials
+(function() {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+    script.async = true;
+
+    // Create a promise for script load
+    const scriptLoaded = new Promise((resolve) => {
+        script.onload = () => resolve(true);
+    });
+
+    // Fetch configuration from the backend
+    const configFetched = fetch('http://127.0.0.1:8000/api/config')
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to fetch configuration");
+            return response.json();
+        })
+        .then(data => {
+            if (data.emailjs_service_id && data.emailjs_service_id !== "YOUR_SERVICE_ID") {
+                EMAILJS_SERVICE_ID = data.emailjs_service_id;
+            }
+            if (data.emailjs_template_id && data.emailjs_template_id !== "YOUR_TEMPLATE_ID") {
+                EMAILJS_TEMPLATE_ID = data.emailjs_template_id;
+            }
+            if (data.emailjs_public_key && data.emailjs_public_key !== "YOUR_PUBLIC_KEY") {
+                EMAILJS_PUBLIC_KEY = data.emailjs_public_key;
+            }
+            return true;
+        })
+        .catch(err => {
+            console.warn("Backend configuration fetch failed, using hardcoded fallback keys if any:", err);
+            return false;
+        });
+
+    // Initialize once both are ready
+    Promise.all([scriptLoaded, configFetched]).then(() => {
+        if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+            emailjs.init({
+                publicKey: EMAILJS_PUBLIC_KEY
+            });
+            isEmailJSInitialized = true;
+            console.log("EmailJS successfully initialized!");
+        }
+    });
+
+    document.head.appendChild(script);
+})();
 
 document.addEventListener('DOMContentLoaded', () => {
     // Mobile Navigation Toggle
@@ -55,6 +107,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // Clear any previous inline contact message
+            if (formType === 'contact') {
+                const msgDiv = document.getElementById('contact-form-message');
+                if (msgDiv) {
+                    msgDiv.style.display = 'none';
+                    msgDiv.innerText = '';
+                }
+            }
+
+            // Field validation
+            let hasEmptyField = false;
+            const requiredInputs = form.querySelectorAll('[required]');
+            requiredInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    hasEmptyField = true;
+                }
+            });
+
+            if (hasEmptyField) {
+                if (formType === 'contact') {
+                    const msgDiv = document.getElementById('contact-form-message');
+                    if (msgDiv) {
+                        msgDiv.style.display = 'block';
+                        msgDiv.style.backgroundColor = '#fff3cd';
+                        msgDiv.style.color = '#664d03';
+                        msgDiv.style.border = '1px solid #ffecb5';
+                        msgDiv.innerText = "Please fill in all required fields.";
+                    }
+                }
+                form.reportValidity();
+                return;
+            }
             
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerText;
@@ -79,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 formData.name = form.querySelectorAll('input[type="text"]')[0].value;
                 formData.mobile = form.querySelector('input[type="tel"]').value;
                 formData.email = form.querySelector('input[type="email"]').value;
+                formData.destination = form.querySelector('select').value;
                 formData.message = form.querySelector('textarea').value;
             } else if (formType === 'homepage') {
                 formData.name = form.querySelector('input[type="text"]').value;
@@ -97,29 +183,93 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (!response.ok) throw new Error('Submission failed');
 
-                // Show Success Message
-                form.style.display = 'none';
-                
-                const successMsg = document.createElement('div');
-                successMsg.innerHTML = `
-                    <div style="text-align:center; padding: 2rem 0;">
-                        <i class="fa-solid fa-circle-check" style="color: #22c55e; font-size: 4rem; margin-bottom: 1rem;"></i>
-                        <h3 style="color: var(--primary-color); font-size: 1.5rem; margin-bottom: 1rem;">Thank you!</h3>
-                        <p style="font-size: 1.1rem;">Your enquiry has been received. Our team will contact you shortly.</p>
-                    </div>
-                `;
-                form.parentNode.insertBefore(successMsg, form.nextSibling);
+                // Send via EmailJS (if configured)
+                if (typeof emailjs !== 'undefined' && isEmailJSInitialized && EMAILJS_SERVICE_ID !== "YOUR_SERVICE_ID" && EMAILJS_TEMPLATE_ID !== "YOUR_TEMPLATE_ID") {
+                    try {
+                        let emailParams = {};
+                        if (formType === 'contact') {
+                            emailParams = {
+                                name: formData.name || "",
+                                phone: formData.mobile || "",
+                                email: formData.email || "",
+                                service: formData.destination || "",
+                                message: formData.message || ""
+                            };
+                        } else {
+                            emailParams = {
+                                form_type: formData.form_type,
+                                name: formData.name || "Guest",
+                                mobile: formData.mobile || "Not Provided",
+                                email: formData.email || "Not Provided",
+                                destination: formData.destination || "Not Provided",
+                                rooms_persons: formData.rooms_persons || "Not Provided",
+                                message: formData.message || "Not Provided",
+                                special_req: formData.special_req || "Not Provided"
+                            };
+                        }
+
+                        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailParams);
+                        console.log("EmailJS notification sent successfully!");
+                    } catch (ejsError) {
+                        console.warn("EmailJS dispatch failed, but form submission is still accepted:", ejsError);
+                    }
+                } else if (formType === 'contact') {
+                    console.warn("EmailJS service is not initialized (check your backend env variables). Skipping email dispatch, but form submission is accepted.");
+                }
+
+                if (formType === 'contact') {
+                    // Show inline success message
+                    const msgDiv = document.getElementById('contact-form-message');
+                    if (msgDiv) {
+                        msgDiv.style.display = 'block';
+                        msgDiv.style.backgroundColor = '#d1e7dd';
+                        msgDiv.style.color = '#0f5132';
+                        msgDiv.style.border = '1px solid #badbcc';
+                        msgDiv.innerText = "Thank you! Your enquiry has been submitted successfully.";
+                    }
+                    
+                    // Reset form
+                    form.reset();
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                } else {
+                    // Show Success Message and hide form for other types
+                    form.style.display = 'none';
+                    
+                    const successMsg = document.createElement('div');
+                    successMsg.innerHTML = `
+                        <div style="text-align:center; padding: 2rem 0;">
+                            <i class="fa-solid fa-circle-check" style="color: #22c55e; font-size: 4rem; margin-bottom: 1rem;"></i>
+                            <h3 style="color: var(--primary-color); font-size: 1.5rem; margin-bottom: 1rem;">Thank you!</h3>
+                            <p style="font-size: 1.1rem;">Your enquiry has been received. Our team will contact you shortly.</p>
+                        </div>
+                    `;
+                    form.parentNode.insertBefore(successMsg, form.nextSibling);
+                }
 
             } catch (error) {
                 console.error(error);
-                alert("Sorry, there was an error submitting your form. Please try again or contact us directly via WhatsApp.");
-                submitBtn.innerText = originalBtnText;
-                submitBtn.disabled = false;
+                if (formType === 'contact') {
+                    // Show inline failure message
+                    const msgDiv = document.getElementById('contact-form-message');
+                    if (msgDiv) {
+                        msgDiv.style.display = 'block';
+                        msgDiv.style.backgroundColor = '#f8d7da';
+                        msgDiv.style.color = '#842029';
+                        msgDiv.style.border = '1px solid #f5c2c7';
+                        msgDiv.innerText = "Something went wrong. Please try again.";
+                    }
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                } else {
+                    alert("Sorry, there was an error submitting your form. Please try again or contact us directly via WhatsApp.");
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                }
             }
         });
     }
 
     setupForm('hotel-form', 'hotel');
-    setupForm('contact-form-el', 'contact');
     setupForm('homepage-enquiry-form', 'homepage');
 });
