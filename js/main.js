@@ -1,7 +1,7 @@
 // ==== EmailJS Configuration ====
-let EMAILJS_SERVICE_ID = "service_funfekn";      // Replace with your EmailJS Service ID
-let EMAILJS_TEMPLATE_ID = "template_mif5kph";    // Replace with your EmailJS Template ID
-let EMAILJS_PUBLIC_KEY = "LJ9eXbLn9RVDsyICp";      // Replace with your EmailJS Public Key
+let EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_yq08f6n";      // Replace with your EmailJS Service ID
+let EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_gfae02o";    // Replace with your EmailJS Template ID
+let EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "ySRvYfcXJHPJk4Kss";      // Replace with your EmailJS Public Key
 let isEmailJSInitialized = false;
 
 // Dynamically load the EmailJS SDK script and fetch credentials
@@ -16,7 +16,8 @@ let isEmailJSInitialized = false;
     });
 
     // Fetch configuration from the backend
-    const configFetched = fetch('http://127.0.0.1:8000/api/config')
+    const backendApiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+    const configFetched = fetch(`${backendApiUrl.replace(/\/$/, '')}/api/config`)
         .then(response => {
             if (!response.ok) throw new Error("Failed to fetch configuration");
             return response.json();
@@ -34,7 +35,7 @@ let isEmailJSInitialized = false;
             return true;
         })
         .catch(err => {
-            console.warn("Backend configuration fetch failed, using hardcoded fallback keys if any:", err);
+            console.warn("Backend configuration fetch failed, using hardcoded fallback/env keys:", err);
             return false;
         });
 
@@ -99,7 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(element => revealObserver.observe(element));
 
     // ==== Form Submission Handling ====
-    const API_URL = 'http://127.0.0.1:8000/api/enquiry';
+    const backendApiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+    const API_URL = `${backendApiUrl.replace(/\/$/, '')}/api/enquiry`;
 
     function setupForm(formId, formType) {
         const form = document.getElementById(formId);
@@ -174,6 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 formData.message = form.querySelector('textarea').value;
             }
 
+            let backendSuccess = false;
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
@@ -181,42 +184,41 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify(formData)
                 });
 
-                if (!response.ok) throw new Error('Submission failed');
-
-                // Send via EmailJS (if configured)
-                if (typeof emailjs !== 'undefined' && isEmailJSInitialized && EMAILJS_SERVICE_ID !== "YOUR_SERVICE_ID" && EMAILJS_TEMPLATE_ID !== "YOUR_TEMPLATE_ID") {
-                    try {
-                        let emailParams = {};
-                        if (formType === 'contact') {
-                            emailParams = {
-                                name: formData.name || "",
-                                phone: formData.mobile || "",
-                                email: formData.email || "",
-                                service: formData.destination || "",
-                                message: formData.message || ""
-                            };
-                        } else {
-                            emailParams = {
-                                form_type: formData.form_type,
-                                name: formData.name || "Guest",
-                                mobile: formData.mobile || "Not Provided",
-                                email: formData.email || "Not Provided",
-                                destination: formData.destination || "Not Provided",
-                                rooms_persons: formData.rooms_persons || "Not Provided",
-                                message: formData.message || "Not Provided",
-                                special_req: formData.special_req || "Not Provided"
-                            };
-                        }
-
-                        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailParams);
-                        console.log("EmailJS notification sent successfully!");
-                    } catch (ejsError) {
-                        console.warn("EmailJS dispatch failed, but form submission is still accepted:", ejsError);
-                    }
-                } else if (formType === 'contact') {
-                    console.warn("EmailJS service is not initialized (check your backend env variables). Skipping email dispatch, but form submission is accepted.");
+                if (response.ok) {
+                    backendSuccess = true;
+                } else {
+                    console.warn('Backend submission returned non-OK status:', response.status);
                 }
+            } catch (error) {
+                console.warn('Backend API submission failed (likely offline/local-only):', error);
+            }
 
+            let emailjsSuccess = false;
+            let emailjsAttempted = false;
+
+            // Send via EmailJS (if configured/initialized)
+            if (typeof emailjs !== 'undefined' && isEmailJSInitialized && EMAILJS_SERVICE_ID !== "YOUR_SERVICE_ID" && EMAILJS_TEMPLATE_ID !== "YOUR_TEMPLATE_ID") {
+                emailjsAttempted = true;
+                try {
+                    let emailParams = {
+                        name: formData.name || "Guest",
+                        mobile: formData.mobile || "Not Provided",
+                        email: formData.email || "Not Provided",
+                        service: formData.destination || "Not Provided",
+                        message: formData.message || formData.special_req || "Not Provided"
+                    };
+
+                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailParams);
+                    console.log("EmailJS notification sent successfully!");
+                    emailjsSuccess = true;
+                } catch (ejsError) {
+                    console.error("EmailJS dispatch failed:", ejsError);
+                }
+            }
+
+            const overallSuccess = backendSuccess || (emailjsAttempted ? emailjsSuccess : false);
+
+            if (overallSuccess) {
                 if (formType === 'contact') {
                     // Show inline success message
                     const msgDiv = document.getElementById('contact-form-message');
@@ -246,9 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                     form.parentNode.insertBefore(successMsg, form.nextSibling);
                 }
-
-            } catch (error) {
-                console.error(error);
+            } else {
                 if (formType === 'contact') {
                     // Show inline failure message
                     const msgDiv = document.getElementById('contact-form-message');

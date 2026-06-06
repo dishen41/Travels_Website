@@ -48,6 +48,8 @@ def get_config():
 @app.post("/api/enquiry")
 def submit_enquiry(data: EnquiryRequest):
     date_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+
     
     # Save to CSV
     try:
