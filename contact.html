@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | Veer Travels</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -15,7 +17,7 @@
 
     <script>
         (function () {
-            emailjs.init("LJ9eXbLn9RVDsyICp");
+            emailjs.init("ySRvYfcXJHPJk4Kss");
         })();
     </script>
     <style>
@@ -342,43 +344,43 @@
 
                 // Send using EmailJS directly
                 emailjs.send(
-                    "service_funfekn",
-                    "template_mif5kph",
+                    "service_yq08f6n",
+                    "template_gfae02o",
                     params
                 )
-                .then(function () {
-                    // Show green success alert in the DOM container
-                    if (msgDiv) {
-                        msgDiv.style.display = "block";
-                        msgDiv.style.backgroundColor = "#d1e7dd";
-                        msgDiv.style.color = "#0f5132";
-                        msgDiv.style.border = "1px solid #badbcc";
-                        msgDiv.innerText = "Thank you! Your enquiry has been submitted successfully.";
-                    }
-                    
-                    // Reset form
-                    document.getElementById("contact-form-el").reset();
-                    
-                    if (submitBtn) {
-                        submitBtn.innerText = originalBtnText;
-                        submitBtn.disabled = false;
-                    }
-                })
-                .catch(function (error) {
-                    console.error("EmailJS sending error:", error);
-                    // Show red error alert in the DOM container
-                    if (msgDiv) {
-                        msgDiv.style.display = "block";
-                        msgDiv.style.backgroundColor = "#f8d7da";
-                        msgDiv.style.color = "#842029";
-                        msgDiv.style.border = "1px solid #f5c2c7";
-                        msgDiv.innerText = "Something went wrong. Please try again.";
-                    }
-                    if (submitBtn) {
-                        submitBtn.innerText = originalBtnText;
-                        submitBtn.disabled = false;
-                    }
-                });
+                    .then(function () {
+                        // Show green success alert in the DOM container
+                        if (msgDiv) {
+                            msgDiv.style.display = "block";
+                            msgDiv.style.backgroundColor = "#d1e7dd";
+                            msgDiv.style.color = "#0f5132";
+                            msgDiv.style.border = "1px solid #badbcc";
+                            msgDiv.innerText = "Thank you! Your enquiry has been submitted successfully.";
+                        }
+
+                        // Reset form
+                        document.getElementById("contact-form-el").reset();
+
+                        if (submitBtn) {
+                            submitBtn.innerText = originalBtnText;
+                            submitBtn.disabled = false;
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error("EmailJS sending error:", error);
+                        // Show red error alert in the DOM container
+                        if (msgDiv) {
+                            msgDiv.style.display = "block";
+                            msgDiv.style.backgroundColor = "#f8d7da";
+                            msgDiv.style.color = "#842029";
+                            msgDiv.style.border = "1px solid #f5c2c7";
+                            msgDiv.innerText = "Something went wrong. Please try again.";
+                        }
+                        if (submitBtn) {
+                            submitBtn.innerText = originalBtnText;
+                            submitBtn.disabled = false;
+                        }
+                    });
             });
     </script>
 

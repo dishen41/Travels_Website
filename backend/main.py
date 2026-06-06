@@ -78,3 +78,21 @@ def get_enquiries():
                 enquiries.append(row)
     return {"status": "success", "data": list(reversed(enquiries))}
 
+"""
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Inquiry(BaseModel):
+    name: str
+    mobile: str
+    email: str
+    message: str
+
+@app.post("/api/contact")
+async def submit_inquiry(inquiry: Inquiry):
+    # Save to database or Google Sheet
+    # Send email notification
+    return {"status": "success", "message": "Inquiry received"}
+"""
