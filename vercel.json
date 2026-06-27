@@ -1,0 +1,12 @@
+{
+  "buildCommand": "npx vite build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "framework": null,
+  "routes": [
+    { "src": "/contact", "dest": "/contact.html" },
+    { "src": "/packages", "dest": "/packages.html" },
+    { "src": "/admin", "dest": "/admin.html" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}
