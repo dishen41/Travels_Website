@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -363,24 +364,24 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Your Name *</label>
-                            <input type="text" class="form-control" placeholder="John Doe" required>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="John Doe" required>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label">Mobile Number *</label>
-                            <input type="tel" class="form-control" placeholder="+91 9876543210" required>
+                            <input type="tel" id="mobile" name="mobile" class="form-control" placeholder="+91 9876543210" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Email Address *</label>
-                            <input type="email" class="form-control" placeholder="john@example.com" required>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="john@example.com" required>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">Select Service *</label>
-                            <select class="form-control" required style="background-color: var(--bg-white);">
+                            <select id="service" name="service" class="form-control" required style="background-color: var(--bg-white);">
                                 <option value="" disabled selected>Choose a Service</option>
                                 <option value="Flight Booking">Flight Booking</option>
                                 <option value="Hotel Booking">Hotel Booking</option>
@@ -396,8 +397,10 @@
 
                     <div class="form-group">
                         <label class="form-label">Your Message *</label>
-                        <textarea class="form-control" placeholder="Tell us about your destinations, travel dates, passenger count, or any special requirements..." required></textarea>
+                        <textarea id="message" name="message" class="form-control" placeholder="Tell us about your destinations, travel dates, passenger count, or any special requirements..." required></textarea>
                     </div>
+
+                    <div class="form-status-message" style="display: none; margin-top: 15px; padding: 12px; border-radius: 8px; font-weight: 500; text-align: center; margin-bottom: 15px;"></div>
 
                     <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px; font-size: 1.1rem; padding: 15px;">Submit Enquiry</button>
                 </form>
@@ -458,6 +461,7 @@
     </footer>
 
     <!-- Scripts -->
+
     <script type="module" src="js/main.js"></script>
 </body>
 </html>

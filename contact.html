@@ -11,15 +11,9 @@
         rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-    </script>
 
-    <script>
-        (function () {
-            emailjs.init("ySRvYfcXJHPJk4Kss");
-        })();
-    </script>
     <style>
         .page-header {
             padding: 150px 0 80px;
@@ -210,43 +204,46 @@
             <div class="contact-form-card" id="contact-form">
                 <h3 style="color:var(--primary-color); margin-bottom:var(--spacing-md);">Send us a Message</h3>
                 <form action="#" id="contact-form-el" method="POST">
-                    <div class="form-group">
-                        <label class="form-label">Your Name *</label>
-                        <input type="text" id="name" class="form-control" placeholder="John Doe" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Your Name *</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="John Doe" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="john@example.com" required>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Mobile Number *</label>
-                        <input type="tel" id="mobile" class="form-control" placeholder="+91 9876543210" required>
-                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Mobile Number *</label>
+                            <input type="tel" id="mobile" name="mobile" class="form-control" placeholder="+91 9876543210" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Email Address *</label>
-                        <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Select Service *</label>
-                        <select class="form-control" id="service" required style="background-color: var(--bg-white);">
-                            <option value="" disabled selected>Choose a Service</option>
-                            <option value="Flight Booking">Flight Booking</option>
-                            <option value="Hotel Booking">Hotel Booking</option>
-                            <option value="Visa Assistance">Visa Assistance</option>
-                            <option value="Holiday Packages">Holiday Packages</option>
-                            <option value="Transportation">Transportation</option>
-                            <option value="Cruise Booking">Cruise Booking</option>
-                            <option value="Travel Insurance">Travel Insurance</option>
-                            <option value="Corporate Travel">Corporate Travel</option>
-                        </select>
+                        <div class="form-group">
+                            <label class="form-label">Select Service *</label>
+                            <select id="service" name="service" class="form-control" required style="background-color: var(--bg-white);">
+                                <option value="" disabled selected>Choose a Service</option>
+                                <option value="Flight Booking">Flight Booking</option>
+                                <option value="Hotel Booking">Hotel Booking</option>
+                                <option value="Visa Assistance">Visa Assistance</option>
+                                <option value="Holiday Packages">Holiday Packages</option>
+                                <option value="Transportation">Transportation</option>
+                                <option value="Cruise Booking">Cruise Booking</option>
+                                <option value="Travel Insurance">Travel Insurance</option>
+                                <option value="Corporate Travel">Corporate Travel</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Your Message *</label>
-                        <textarea id="message" class="form-control" placeholder="Tell us about your travel plans..."
-                            required></textarea>
+                        <textarea id="message" name="message" class="form-control" placeholder="Tell us about your travel plans..." required></textarea>
                     </div>
 
-                    <div id="contact-form-message"
+                    <div id="contact-form-message" class="form-status-message"
                         style="display: none; margin-top: 15px; padding: 12px; border-radius: 8px; font-weight: 500; text-align: center; margin-bottom: 15px;">
                     </div>
 
@@ -299,90 +296,8 @@
         </div>
     </footer>
 
-    <script type="module" src="js/main.js?v=1.1"></script>
 
-    <script>
-        document
-            .getElementById("contact-form-el")
-            .addEventListener("submit", function (e) {
-                e.preventDefault();
-                e.stopImmediatePropagation(); // Prevent cached main.js listeners from duplicate submissions
-
-                // Clear previous message
-                const msgDiv = document.getElementById("contact-form-message");
-                if (msgDiv) {
-                    msgDiv.style.display = "none";
-                    msgDiv.innerText = "";
-                }
-
-                // Gather elements defensively
-                const nameEl = document.getElementById("name");
-                const mobileEl = document.getElementById("mobile");
-                const emailEl = document.getElementById("email");
-                const serviceEl = document.getElementById("service");
-                const messageEl = document.getElementById("message");
-
-                if (!nameEl || !mobileEl || !emailEl || !serviceEl || !messageEl) {
-                    console.error("Some form fields are missing in the DOM.");
-                    return;
-                }
-
-                const params = {
-                    name: nameEl.value,
-                    mobile: mobileEl.value,
-                    email: emailEl.value,
-                    service: serviceEl.value,
-                    message: messageEl.value,
-                };
-
-                const submitBtn = e.target.querySelector('button[type="submit"]');
-                const originalBtnText = submitBtn ? submitBtn.innerText : "Submit Enquiry";
-                if (submitBtn) {
-                    submitBtn.innerText = "Sending...";
-                    submitBtn.disabled = true;
-                }
-
-                // Send using EmailJS directly
-                emailjs.send(
-                    "service_yq08f6n",
-                    "template_gfae02o",
-                    params
-                )
-                    .then(function () {
-                        // Show green success alert in the DOM container
-                        if (msgDiv) {
-                            msgDiv.style.display = "block";
-                            msgDiv.style.backgroundColor = "#d1e7dd";
-                            msgDiv.style.color = "#0f5132";
-                            msgDiv.style.border = "1px solid #badbcc";
-                            msgDiv.innerText = "Thank you! Your enquiry has been submitted successfully.";
-                        }
-
-                        // Reset form
-                        document.getElementById("contact-form-el").reset();
-
-                        if (submitBtn) {
-                            submitBtn.innerText = originalBtnText;
-                            submitBtn.disabled = false;
-                        }
-                    })
-                    .catch(function (error) {
-                        console.error("EmailJS sending error:", error);
-                        // Show red error alert in the DOM container
-                        if (msgDiv) {
-                            msgDiv.style.display = "block";
-                            msgDiv.style.backgroundColor = "#f8d7da";
-                            msgDiv.style.color = "#842029";
-                            msgDiv.style.border = "1px solid #f5c2c7";
-                            msgDiv.innerText = "Something went wrong. Please try again.";
-                        }
-                        if (submitBtn) {
-                            submitBtn.innerText = originalBtnText;
-                            submitBtn.disabled = false;
-                        }
-                    });
-            });
-    </script>
+    <script type="module" src="js/main.js"></script>
 
 </body>
 
