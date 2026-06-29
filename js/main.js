@@ -4,9 +4,9 @@
 // ============================================================
 
 // ==== EmailJS Configuration (Public Keys — safe to expose) ====
-const EMAILJS_SERVICE_ID = "service_funfekn";
-const EMAILJS_TEMPLATE_ID = "template_mif5kph";
-const EMAILJS_PUBLIC_KEY = "LJ9eXbLn9RVDsyICp";
+const EMAILJS_SERVICE_ID = "service_vyemzsn";
+const EMAILJS_TEMPLATE_ID = "template_omjew8n";
+const EMAILJS_PUBLIC_KEY = "ySRvYfcXJHPJk4Kss";
 
 // ==== EmailJS will be initialized inside DOMContentLoaded ====
 // (ensures the CDN <script> has fully executed before we call init)
